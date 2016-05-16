@@ -6,7 +6,7 @@
         id        = "com.ima.test"
         version   = "1.0.0">
 
-    <name>Sarai Alerts</name>
+    <name>PCAARRD Alerts</name>
 
     <description>
         Sends and receives alerts
