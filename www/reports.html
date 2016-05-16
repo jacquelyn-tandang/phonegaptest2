@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sarai Alerts | Analytics </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/nprogress.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/openfb.js"></script>
+    <script src="js/fb.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/loadingoverlay.js"></script>
+    <script>
+        NProgress.start();
+    </script>
+    
+    <!--[if lt IE 9]>
+        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            <div id="alert-modal"> </div>
+
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" id="menu-div">
+                    <!--menu inserted here via ajax-->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right" id="user-info">
+                            <!-- userinfo to be included here via ajax -->
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <!-- /top navigation -->
+
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+
+                <!-- top tiles -->
+                <div class="row tile_count">
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top">Total Users</span>
+                            <div class="count" id="total-users-count"></div>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top">Alerts Posted</span>
+                            <div class="count" id="total-alerts-count"></div>
+                        </div>
+                    </div>
+                    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+                        <div class="left"></div>
+                        <div class="right">
+                            <span class="count_top">Alerts Pushed</span>
+                            <div class="count" id="total-pushed-count"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /top tiles -->
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="dashboard_graph">
+
+                            <div class="row x_title">
+                                <div class="col-md-6">
+                                    <h3>Alerts Posted </h3>
+                                </div>
+                                <!--
+                                <div class="col-md-6">
+                                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div id="placeholder33" style="height: 260px; display: none" class="demo-placeholder"></div>
+                                <div style="width: 100%;">
+                                    <div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;"></div>
+                                </div>
+                            </div>
+                       
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <br />
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel tile fixed_height_320">
+                            <div class="x_title">
+                                <h2>Gender Distribution</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" id="gender">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel tile fixed_height_320">
+                            <div class="x_title">
+                                <h2>Occupation Distribution</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" id="occupation">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel tile fixed_height_320 overflow_hidden">
+                            <div class="x_title">
+                                <h2>Devices</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <table class="" style="width:100%">
+                                    <tr>
+                                        <th style="width:37%;">
+                                            <p></p>
+                                        </th>
+                                        <th>
+                                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                <p class="">Device</p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                                <p class="">%</p>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <canvas id="canvas1" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+                                        </td>
+                                        <td>
+                                            <table class="tile_info" id="devices">
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="x_panel tile fixed_height_320 overflow_hidden">
+                            <div class="x_title">
+                                <h2>Crops Subscribers</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <table class="" style="width:100%">
+                                    <tr>
+                                        <th style="width:37%;">
+                                            <p></p>
+                                        </th>
+                                        <th>
+                                            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                                <p class="">Device</p>
+                                            </div>
+                                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                                <p class="">%</p>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <canvas id="canvas2" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
+                                        </td>
+                                        <td>
+                                            <table class="tile_info" id="crops">
+                                                
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Location <small>geo-presentation</small></h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content" id="chart_div">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /page content -->
+
+        </div>
+
+    </div>
+
+    <div id="custom_notifications" class="custom-notifications dsp_none">
+        <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+        </ul>
+        <div class="clearfix"></div>
+        <div id="notif-group" class="tabbed_notifications"></div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <script type='text/javascript' src='js/geo-charts-loader.js'></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+    <!-- chart js -->
+    <script src="js/chartjs/chart.min.js"></script>
+    <!-- bootstrap progress js -->
+    <script src="js/progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
+    <!-- daterangepicker 
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <script type="text/javascript" src="js/datepicker/daterangepicker.js"></script>
+    -->
+    <script src="js/custom.js"></script>
+
+    <!-- flot js -->
+    <!--[if lte IE 8]><script type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+    <script type="text/javascript" src="js/flot/jquery.flot.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.pie.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.orderBars.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.time.min.js"></script>
+    <script type="text/javascript" src="js/flot/date.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.spline.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.stack.js"></script>
+    <script type="text/javascript" src="js/flot/curvedLines.js"></script>
+    <script type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
+
+    <!-- datepicker -->
+    <script type="text/javascript">
+        
+    </script>
+    <script>
+
+        NProgress.done();
+    </script>
+    <!-- /datepicker -->
+    <!-- /footer content -->
+
+    
+
+    <script>
+
+        app.initialize();
+
+        function gd(year, month, day) {
+            return new Date(year, month - 1, day).getTime();
+        }
+
+        function addProgressBarLine(label, percent) {
+            return html =
+                '<div class="widget_summary">' +
+                    '<div class="w_left w_25">' +
+                        '<span id="name">' + label + '</span>' +
+                    '</div>' +
+                    '<div class="w_center w_55">' +
+                        '<div class="progress">' +
+                            '<div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-' +
+                            'valuemax="100" style="width: ' + percent + '%;">' +
+                            '<span class="sr-only">' + percent + '% </span>' +
+                        '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="w_right w_20">' +
+                        '<span>' + percent + '%</span>' +
+                    '</div>' +
+                    '<div class="clearfix"></div>' +
+                '</div>';
+        }
+
+        function populateDoughnutInfo(label, percent, color) {
+            return html =
+                '<tr>' +
+                    '<td>' +
+                        '<p><i class="fa fa-square" style="color:' + color + '"></i>' + label + '</p>' +
+                    '</td>' +
+                    '<td>' + percent + '%</td>' +
+                '</tr>';
+
+        }
+
+        function drawMarkersMap() {
+
+            locations = JSON.parse(localStorage.getItem('location_report'));
+            var data = google.visualization.arrayToDataTable(locations);
+
+            var options = {
+                region: 'PH',
+                displayMode: 'markers',
+                colorAxis: {colors: ['green', 'blue']}
+            };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        };
+
+        google.charts.load('current', {'packages': ['geochart']});
+        google.charts.setOnLoadCallback(drawMarkersMap);
+
+        
+
+        $(document).ready(function () {
+
+            
+
+            request(
+                localStorage.getItem("_api_server") + "/reports", 
+                {}, 
+                function(result){
+                    
+                    //Show total users
+                    $('#total-users-count').html(result.data.users_total);
+                    $('#total-alerts-count').html(result.data.alerts_total);
+                    $('#total-pushed-count').html(result.data.pushed_total);
+
+                    //Load gender graph
+                    $.each( result.data.genders, function( key, value ) {
+
+                        if (key == '') {
+                            key = 'Not specified';
+                        }
+
+                        $('#gender').append(addProgressBarLine(key, value.toFixed(2)));
+                    });
+
+                    //Load occupation graph
+                    $.each( result.data.occupations, function( key, value ) {
+
+                        if (key == '') {
+                            key = 'Not specified';
+                        }
+
+                        $('#occupation').append(addProgressBarLine(key, value.toFixed(2)));
+                    });
+
+                    //Devices
+                    var doughnutData = [];
+                    var colors = ["#455C73", "#9B59B6", "#BDC3C7", "#26B99A", "#3498DB" , "#00FF00"];
+                    var i = 0;
+                    $.each( result.data.devices, function( key, value ) {
+                        $('#devices').append(populateDoughnutInfo(key, value.toFixed(2), colors[i]));
+                        doughnutData.push({
+                            value: value,
+                            color: colors[i]
+                        });
+                        i++;
+                    });
+
+                    var myDoughnut = new Chart(document.getElementById("canvas1").getContext("2d")).Doughnut(doughnutData);
+
+
+                    //Crops
+                    doughnutData = [];
+                    var i = 0;
+                    $.each( result.data.crops, function( key, value ) {
+                       $('#crops').append(populateDoughnutInfo(key, value.toFixed(2), colors[i]));
+                        doughnutData.push({
+                            value: value,
+                            color: colors[i]
+                        });
+                        i++;
+                    });
+
+                    myDoughnut = new Chart(document.getElementById("canvas2").getContext("2d")).Doughnut(doughnutData);
+
+
+                    //Alerts sent
+                    //Get date 7 days before today
+                    var nd,
+                        data = [],
+                        flag;
+
+                    for (var i = 6; i>=0; i--) {
+                        nd = new Date();
+                        var ms = nd.getTime() - 1000*60*60*24*1*i; // Offset by one day;
+                        nd.setTime( ms );
+                        console.log(nd);
+                        flag = false;
+
+                        $.each( result.data.alerts_sent, function( key, value ) {   
+                            var date_array = key.split("-");                    
+                            //data.push([gd(date_array[0], date_array[1], date_array[2]), value]);
+                            if ((nd.getFullYear() == date_array[0]) &&
+                                ((nd.getMonth()+1) == date_array[1]) &&
+                                (nd.getDate() == date_array[2])
+                            ) {
+                                data.push([gd(date_array[0], date_array[1], date_array[2]), value]);
+                                flag = true;
+                            }
+                        });
+
+                        if (!flag) {
+                            data.push([gd(nd.getFullYear(), nd.getMonth() + 1, nd.getDate()), 0]);
+                        }
+
+                    }
+
+                    console.log(data);
+
+                    /*var data = [];
+                    $.each( result.data.alerts_sent, function( key, value ) {   
+                        var date = key.split("-");                    
+                        data.push([gd(date[0], date[1], date[2]), value]);
+                    });
+                    */
+
+                    $("#canvas_dahs").length && $.plot($("#canvas_dahs"), [
+                        data
+                      ], {
+                        series: {
+                          lines: {
+                            show: false,
+                            fill: true
+                          },
+                          splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 1,
+                            fill: 0.4
+                          },
+                          points: {
+                            radius: 0,
+                            show: true
+                          },
+                          shadowSize: 2
+                        },
+                        grid: {
+                          verticalLines: true,
+                          hoverable: true,
+                          clickable: true,
+                          tickColor: "#d5d5d5",
+                          borderWidth: 1,
+                          color: '#fff'
+                        },
+                        colors: ["rgba(38, 185, 154, 0.38)", "rgba(3, 88, 106, 0.38)"],
+                        xaxis: {
+                          tickColor: "rgba(51, 51, 51, 0.06)",
+                          mode: "time",
+                          tickSize: [1, "day"],
+                          //tickLength: 10,
+                          axisLabel: "Date",
+                          axisLabelUseCanvas: true,
+                          axisLabelFontSizePixels: 12,
+                          axisLabelFontFamily: 'Verdana, Arial',
+                          axisLabelPadding: 10
+                            //mode: "time", timeformat: "%m/%d/%y", minTickSize: [1, "day"]
+                        },
+                        yaxis: {
+                          ticks: 8,
+                          tickColor: "rgba(51, 51, 51, 0.06)",
+                        },
+                        tooltip: false
+                    });
+
+                    //Locations
+                    var locations = [['City',   'Subscribers %']];
+                    $.each( result.data.location, function( key, value ) {                       
+                        locations.push([key, value]);
+                    });
+
+                    localStorage.setItem("location_report", JSON.stringify(locations));
+                    
+                    
+
+
+
+                }
+            );
+
+        });
+    </script>
+
+    
+</body>
+
+</html>

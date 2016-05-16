@@ -1,0 +1,57 @@
+
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3>General</h3>
+                            <ul class="nav side-menu" style="color:#5cb85c">
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <script>
+                        $(document).ready(function () {
+
+                            var user = localStorage.getItem("_user");
+                            var menulist;
+
+                            menulist = '<li ><a href="forecast.html"><i class="fa fa-home" ></i> Home </a></li>' +
+                                '<li><a href="history.html"><i class="fa fa-history"></i> Advisory History </a></li>' +
+                                '<li><a href="settings.html"><i class="fa fa-gear"></i> Settings </a></li>';
+                            
+                            if (user == "admin") {
+                                menulist += '<li><a href="reports.html"><i class="fa fa-bar-chart"></i> Analytics </a></li>' +
+                                '<li><a href="send-alert.html"><i class="fa fa-send"></i> Send Alert </a></li>' +
+                                '<li><a href="alerts-reported.html"><i class="fa fa-envelope"></i> Reports </a></li>' +
+                                '<li><a href="manage-users.html"><i class="fa fa-users"></i> Manage Users </a></li>';
+                            }
+                            else {
+                                if (user != "guest") {
+                                    menulist += '<li><a href="report.html"><i class="fa fa-send"></i> Report </a></li>';
+                                }
+                            }
+                            
+                            menulist += '<li><a id="logout"><i class="fa fa-sign-out"></i> Logout </a></li>';
+
+                            $('ul.side-menu').html(menulist);
+
+                            $( "#logout" ).click(function() {
+                                logout();
+                            });
+
+                            
+                            $("ul.side-menu li a").each(function() {
+                                $(this).click(function(){
+                                    $.LoadingOverlay("show");
+                                });
+                            });
+
+                        });
+                    </script>
+
+                    <!-- Alert modal -->
+                    
+
+
+
+
+

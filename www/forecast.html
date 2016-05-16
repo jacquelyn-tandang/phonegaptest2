@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sarai Alerts | Forecast</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/maps/jquery-jvectormap-2.0.1.css" />
+    <link href="css/icheck/flat/green.css" rel="stylesheet" />
+    <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/nprogress.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/openfb.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/loadingoverlay.js"></script>
+    <script src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+    <script>
+        NProgress.start();
+    </script>
+    
+    <!--[if lt IE 9]>
+        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            <div id="alert-modal"> </div>
+
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" id="menu-div">
+                    <!--menu inserted here via ajax-->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right" id="user-info">
+                            <!-- userinfo to be included here via ajax -->
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <!-- /top navigation -->
+
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 col-xs-12" id="forecast-container">
+                        <div class="row">
+
+                            <!-- start of weather widget -->
+                            <div class="col-md-12 col-sm-6 col-xs-12">
+                                <div class="x_panel">
+                                    <div class="x_title">
+                                        <h2>Forecast</h2>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content" id="forecast">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="weather-icon">
+                                                    <span>
+                                                        
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <div class="weather-text" id="today">
+                                                    <h2><span id="town"></span></span></span>
+                                                    <span id="hours"></span><span id="mins"></span><br>
+                                                    <!--<i class="degrees">25</i>-->
+                                                    <!--<span><b>C</b></span>-->
+                                                    <div class="temperature"><i id="weather"></i> 
+                                                    <!--<b id="day"></b>-->
+                                                    </div>
+                                                </h2>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="weather-text pull-right">       
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+
+
+                                        <div class="row weather-days" >
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- end of weather widget -->
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Active alerts <b id="date"></b></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="dashboard-widget-content" id="active-alerts-div">
+                                    <ul id="active-alerts" class="list-unstyled timeline widget">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /page content -->
+
+        </div>
+
+    </div>
+
+    <div id="custom_notifications" class="custom-notifications dsp_none">
+        <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+        </ul>
+        <div class="clearfix"></div>
+        <div id="notif-group" class="tabbed_notifications"></div>
+    </div>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/skycons/skycons.js"></script>
+
+    <!-- /footer content -->
+    <script type="text/javascript" charset="utf-8">
+
+    app.initialize();
+    //GEOLOCATION
+    // Wait for device API libraries to load
+    //
+    //document.addEventListener("deviceready", onDeviceReady, false);
+
+    
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+
+
+       // var city = localStorage.getItem("city");
+        var town = localStorage.getItem("town");
+
+        if (town === null) {
+            navigator.geolocation.getCurrentPosition(onGeoLocSuccess, onError);
+        }
+        else{
+           // $("#city").html(city);
+            $("#town").html(town);
+        }
+        
+    }
+
+    
+
+    function addSubscription(tag){
+
+    }
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+        alert('code: '    + error.code    + '\n' +
+              'message: ' + error.message + '\n');
+    }
+
+    function getAlerts(date, tags) {
+
+        if (localStorage.getItem("alerts_" + date)) {
+            showAlerts(JSON.parse(localStorage.getItem("alerts_" + date)));
+        }
+        else{
+            request(
+                localStorage.getItem("_api_server") + "/alerts", 
+                {date: date}, 
+                function(result){
+                    localStorage.setItem("alerts_" + date, JSON.stringify(result.data));
+                    showAlerts(result.data);
+                }
+            );
+        }
+    }
+
+    function requestForecast(location) {
+        var forecast_url = "http://api.openweathermap.org/data/2.5/forecast?q=" + 
+            location + ",ph&mode=json&appid=" +
+            localStorage.getItem("_open_weather_map_apikey");
+
+        request(
+            forecast_url, 
+            null, 
+            function(result){
+                localStorage.setItem("forecast", JSON.stringify(result));
+                populateForecast();
+            }
+        );
+    }
+
+    function getForecast() {
+
+        if (localStorage.getItem("forecast")) {
+            //@TODO: Cache forecast. expire every N hours
+            populateForecast();
+        }
+        else {
+            //Get location name    
+            var subscription = JSON.parse(localStorage.getItem("settings_subscription"));  
+            var has_fixed_location = false;  
+            console.log(subscription);
+            $.each( subscription, function( key, value ) {
+                if (key > 10) {
+                    has_fixed_location = true; 
+                    localStorage.setItem("town", value); 
+                }
+            });
+
+            if (has_fixed_location) {
+                requestForecast(localStorage.getItem("town"));
+            }
+            else{
+
+                if (typeof device === "undefined") {
+                    //If browser
+                    var browser_city = geoplugin_city();
+                    if (browser_city != "") {
+                        $("#town").html(browser_city);
+                    }
+                    else{
+                        $("#forecast").html("Unable to detect your location. Click <a href='settings.html'>here</a> to manually set your location");
+                    }
+                    
+                }
+                else{
+                    //If device
+                    document.addEventListener("deviceready", onDeviceReady, false);
+                }
+                
+            }
+        }
+        
+    }
+
+    function loadAlerts(date) {
+        getAlerts(date, getTagIDsString());
+        getForecast();
+    }
+
+    function getDay(dayint) {
+
+        var daystring = "";
+
+        if (dayint == 0) daystring = "Sunday";
+        if (dayint == 1) daystring = "Monday";
+        if (dayint == 2) daystring = "Tuesday";
+        if (dayint == 3) daystring = "Wednesday";
+        if (dayint == 4) daystring = "Thursday";
+        if (dayint == 5) daystring = "Friday";
+        if (dayint == 6) daystring = "Saturday";
+
+        return daystring;
+    }
+
+    function populateForecast() {
+
+        var skycons = new Skycons({"color": "#73879C"}),
+            forecast = JSON.parse(localStorage.getItem("forecast"));
+
+        var date = new Date();
+        var day = date.getDay();
+        $('div#today #day').html(getDay(day));
+        $('div#today #hours').html(date.getHours() + ":");
+        $('div#today #mins').html(("0" + date.getMinutes()).slice(-2));
+
+        var weather = forecast.list[0].weather[0].main;
+        console.log(weather);
+        var weather_today = weather;
+
+        $('.weather-icon').html('<canvas height="84" width="84" id="icon"></canvas>');
+        if (weather == "Clear") {skycons.add("icon", Skycons.CLEAR_DAY);}
+        if (weather == "Rain") {weather_today = "Rainy";skycons.add("icon", Skycons.RAIN);}
+        if (weather == "Clouds") {weather_today = "Cloudy";skycons.add("icon", Skycons.CLOUDY);}
+
+        $('div#today #weather').html(weather_today);
+        $('div#today #town').html(localStorage.getItem("town"));
+
+
+        for (var i = 0; i<6; i++) {
+            var date = new Date();
+            date.setDate(date.getDate() + (i));
+            var nd = new Date(date);
+
+            var html = 
+            '<div class="col-sm-2">' +
+                '<div class="daily-weather" class="day" id="' + formatDate(nd) + '"  style="text-align:center">' +
+                    '<h2 class="day">' + nd.getDate() + '<br>' + getDay(nd.getDay()).substring(0, 3) + '</h2>' +
+                    //'<h3 class="degrees">25</h3>' +
+                    '<canvas height="32" width="32" id="icon' + i + '"></canvas>' +
+                '</div>' +
+            '</div>';
+
+            $('.weather-days').append(html);
+
+            if (forecast.list[i*5] != undefined) {
+
+                weather = forecast.list[i*5].weather[0].main
+
+                if (weather == "Clear") skycons.add("icon"+i, Skycons.CLEAR_DAY);
+                if (weather == "Rain") skycons.add("icon"+i, Skycons.RAIN);
+                if (weather == "Clouds") skycons.add("icon"+i, Skycons.CLOUDY);
+
+            }
+        }
+
+        skycons.play();
+
+        //Setup onclick event on the dates
+        $('.daily-weather').click(function(){
+            var id = this.id;
+            window.location.replace("forecast.html?date=" + id);
+        });
+
+        $("#forecast").LoadingOverlay("hide");
+    }
+
+    $(document).ready(function () {
+
+        $("#forecast").LoadingOverlay("show");
+        $("#active-alerts-div").LoadingOverlay("show");
+
+
+        //If has post
+        var params = getUrlVars(),
+            date;
+
+        if (params['date'] != undefined) {
+            date = params['date'];
+            $('#date').html(date);
+        }
+        else{
+            date = new Date();
+            date = formatDate(date);
+        }
+
+        //If subscription cache exists
+        if (localStorage.getItem("settings_subscription")) {
+            console.log("has cache");
+            loadAlerts(date);
+        }
+        else{
+            //Else, call API to get subscription list
+            console.log("has NO cache");
+            request(
+                localStorage.getItem("_api_server") + "/user/subscription", 
+                null, 
+                function(result){
+                    localStorage.setItem("settings_subscription", JSON.stringify(result.data));
+                    loadAlerts(date);
+                }
+            );
+            
+        }
+
+        
+
+        $('#' + date + ' h2').css('font-weight', 'bold');
+        $('#' + date + ' h2').css('background', '#73879c');
+        $('#' + date + ' h2').css('color', '#fff');
+
+    });
+
+    </script>
+</body>
+
+</html>

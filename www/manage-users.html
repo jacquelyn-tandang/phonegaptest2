@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sarai Alerts | Manage Users </title>
+
+    <!-- Bootstrap core CSS -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/icheck/flat/green.css" rel="stylesheet">
+    <!-- editor -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="css/editor/external/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="css/editor/index.css" rel="stylesheet">
+    <!-- select2 -->
+    <link href="css/select/select2.min.css" rel="stylesheet">
+    <!-- switchery -->
+    <link rel="stylesheet" href="css/switchery/switchery.min.css" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="js/openfb.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="js/loadingoverlay.js"></script>
+
+    <!--[if lt IE 9]>
+        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
+        <![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+
+<body class="nav-md">
+
+    <div class="container body">
+
+
+        <div class="main_container">
+
+            <div id="alert-modal"> </div>
+
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view" id="menu-div">
+                    <!--menu inserted here via ajax-->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+
+                        <ul class="nav navbar-nav navbar-right" id="user-info">
+                            <!-- userinfo to be included here via ajax -->
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+            <!-- /top navigation -->
+
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <div class="">
+
+                    
+                    <div class="clearfix"></div>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+                                    <h2>Manage Users</h2>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="x_content">
+                                    <ul class="list-unstyled msg_list" id="users">
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+                <!-- /page content -->
+
+            </div>
+
+        </div>
+    </div>
+
+        <div id="custom_notifications" class="custom-notifications dsp_none">
+            <ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">
+            </ul>
+            <div class="clearfix"></div>
+            <div id="notif-group" class="tabbed_notifications"></div>
+        </div>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script>
+
+            app.initialize();
+
+            $(document).ready(function () {
+
+                //Get users from api
+                request(
+                    localStorage.getItem("_api_server") + "/users", 
+                    null, 
+                    function(result) {
+
+                        $.each( result.data, function() {
+                            var html = '<li>' +
+                                            '<a>' +
+                                                '<span class="image">' +
+                                                    '<img style="width:24px;width:24px;" src="' + "http://graph.facebook.com/"+this.facebookid+"/picture" + '" />' +
+                                                '</span>' +
+                                                '<span>' +
+                                                '<span class="name" >' + this.name +
+                                                '</span>' +
+                                                '<span class="time">' +
+                                                    '<select class="is-admin" id="' + this.id + '">' +
+                                                        '<option value="1">Admin</option>' +
+                                                        '<option value="0">User</option>' +
+                                                    '</select>' +
+                                                '</span>' +
+                                                '</span>' +
+                                                
+                                           ' </a>' +
+                                        '</li>';
+                            $('#users').append(html);
+                            $('select#' + this.id).val(this.isadmin);
+
+                            //Set onclick events
+                            $('select#' + this.id).change(function(){
+
+                                var isadmin = $(this).val(),
+                                    userid = $(this).attr('id'),
+                                    params = {user: userid};
+
+                                console.log(isadmin);
+
+                                if (isadmin == 1) {
+                                    // /user/admin/authorize   
+                                    request(
+                                        localStorage.getItem("_api_server") + "/user/admin/authorize", 
+                                        params, 
+                                        null
+                                    );
+
+                                }
+                                else{
+                                    // /user/admin/revoke
+                                    request(
+                                        localStorage.getItem("_api_server") + "/user/admin/revoke", 
+                                        params, 
+                                        null
+                                    );
+                                }
+                            });
+                        });       
+                    }
+                );
+            });
+
+
+        </script>
+        <!-- /editor -->
+
+</body>
+
+</html>
