@@ -76,10 +76,8 @@
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
     
     <gap:plugin name="com.phonegap.plugins.facebookconnect" spec="0.9.0" source="pgb">
-        <!--<param name="APP_ID" value="1631061333814819" />
-        <param name="APP_NAME" value="SaraiAlerts" />-->
-        <param name="APP_ID" value="1685220765065542" />
-        <param name="APP_NAME" value="SaraiAlertsLocal" />
+        <param name="APP_ID" value="1631061333814819" />
+        <param name="APP_NAME" value="SaraiAlerts" />
     </gap:plugin>
 
     <plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" spec="1.2.0" source="pgb" />
