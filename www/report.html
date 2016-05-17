@@ -332,23 +332,42 @@
                         $.LoadingOverlay("hide");
                         $("div.alert").hide();
 
-                        localStorage.setItem("_ajaxRequestInProgress", "false");
-                        localStorage.setItem("token",result.token); 
-                        
-                        $('#alert-push-modal #modal-title').html('New report successfully sent!'); 
-                        $('#alert-push-modal #alert-title').html(""); 
-                        $('#alert-push-modal #alert-msg').html("You have successfully sent your report"); 
-                        $('#alert-push-modal #read-more').hide();
-                        $('#alert-push-modal .btn-default')
-                                .html("Close")
-                                .click(function(){
-                                $(this).unbind;
-                                    window.location.replace("report.html");
-                                });
-                         
-                        $('#alert-push-modal').modal('show');
+                        if (result.status != "failed") {
 
-                    }
+                            localStorage.setItem("_ajaxRequestInProgress", "false");
+                            localStorage.setItem("token",result.token); 
+                            
+                            $('#alert-push-modal #modal-title').html('New report successfully sent!'); 
+                            $('#alert-push-modal #alert-title').html(""); 
+                            $('#alert-push-modal #alert-msg').html("You have successfully sent your report"); 
+                            $('#alert-push-modal #read-more').hide();
+                            $('#alert-push-modal .btn-default')
+                                    .html("Close")
+                                    .click(function(){
+                                    $(this).unbind;
+                                        window.location.replace("report.html");
+                                    });
+                             
+                            $('#alert-push-modal').modal('show');
+                        }
+                        else{
+                            if (result.data.token != null) {
+                                throwError('Error', 'Your session token is either invalid or expired. Please log in again to continue.'); 
+                                $('#alert-push-modal button.btn-default').click(function() {
+                                    $('#alert-push-modal').modal('hide');
+                                    logout();
+                                });
+                            }
+                            else {
+                                throwError('Error', result.data); 
+                            }
+                        } 
+
+                    },
+                    error: function () { 
+                        localStorage.setItem("_ajaxRequestInProgress", "false");
+                        throwError('Error', 'Could not connect to API server. <br/>Please try again later.');
+                    } 
                 });
 
                 localStorage.removeItem("settings_subscription");
