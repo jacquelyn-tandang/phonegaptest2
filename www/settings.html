@@ -443,7 +443,16 @@
                     senddaysbefore = $('senddaysbefore').val(),
                     previous_usersettings = null;
 
+
+
                 previous_usersettings = JSON.parse(localStorage.getItem("settings_user"));
+
+                console.log("new occupation:" + occupation);
+                console.log("old occupation:" + previous_usersettings.occupation);
+
+
+                console.log("new days:" +senddaysbefore);
+                console.log("old days:" + previous_usersettings.senddaysbefore);
 
                 if (previous_usersettings != null) {
                     if ((occupation != previous_usersettings.occupation) || 
