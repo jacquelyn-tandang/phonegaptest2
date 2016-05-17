@@ -461,8 +461,10 @@
                 if (localStorage.getItem("_has_commodity") != "false") {
                     new_subscription = getCrops().split(',');
                 }
-
-                new_subscription.push($('#selected-location').val());
+                if ($('#selected-location').val() != undefined) {
+                    new_subscription.push($('#selected-location').val());
+                }
+                
                 console.log(new_subscription);
 
                 // Unsubscribe if no longer subscribed
