@@ -199,7 +199,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group hidden" id="commodity">
                                             <label class="col-md-3 col-sm-3 col-xs-12 control-label">Crops</label>
 
                                             <div class="col-md-9 col-sm-9 col-xs-12">
@@ -397,6 +397,13 @@
 
             $(document).ready(function () {
                 $(".add-location").click(cloneLocation);
+
+                if (localStorage.getItem("_has_commodity") == "false") {
+                    $('#commodity').remove();
+                }
+                else{
+                    $('#commodity').removeClass("hidden");
+                }
 
                 if (localStorage.getItem("locations") === null) {
                     fetchTags();
