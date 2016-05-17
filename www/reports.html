@@ -205,7 +205,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12 hidden" id="commodity">
                         <div class="x_panel tile fixed_height_320 overflow_hidden">
                             <div class="x_title">
                                 <h2>Crops Subscribers</h2>
@@ -385,7 +385,12 @@
 
         $(document).ready(function () {
 
-            
+            if (localStorage.getItem("_has_commodity") == "false") {
+                $('#commodity').remove();
+            }
+            else{
+                $('#commodity').removeClass("hidden");
+            }
 
             request(
                 localStorage.getItem("_api_server") + "/reports", 
