@@ -365,6 +365,7 @@
 
                     },
                     error: function () { 
+                        $.LoadingOverlay("hide");
                         localStorage.setItem("_ajaxRequestInProgress", "false");
                         throwError('Error', 'Could not connect to API server. <br/>Please try again later.');
                     } 
