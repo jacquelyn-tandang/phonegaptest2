@@ -351,6 +351,7 @@
                         token: localStorage.getItem("token")
                     }, 
                     function(){
+                        $.LoadingOverlay("hide");
                         $("#success-msg").removeClass("hidden");
                         $(".bs-callout-info").addClass("hidden");
                     }
@@ -456,7 +457,7 @@
                     }
                 }
 
-                var new_subscription = array();
+                var new_subscription = [];
                 if (localStorage.getItem("_has_commodity") != "false") {
                     new_subscription = getCrops().split(',');
                 }
