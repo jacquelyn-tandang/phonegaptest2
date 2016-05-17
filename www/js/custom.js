@@ -436,6 +436,7 @@ function subscribe(tag) {
         localStorage.getItem("_api_server") + "/user/subscription/add" , 
         {tagid: tag}, 
         function(){
+            $.LoadingOverlay("hide");
             $("#success-msg").removeClass("hidden");
             $(".bs-callout-info").addClass("hidden");
         }
@@ -447,6 +448,7 @@ function unsubscribe(tag) {
         localStorage.getItem("_api_server") + "/user/subscription/remove" , 
         {tagid: tag}, 
         function(){
+            $.LoadingOverlay("hide");
             $("#success-msg").removeClass("hidden");
             $(".bs-callout-info").addClass("hidden");
         }

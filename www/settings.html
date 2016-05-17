@@ -164,7 +164,7 @@
                                             <input type="hidden" id="selected-location" name="selected-location" value="">
                                         </div>
 
-                                        <div class="form-group" id="commodity">
+                                        <div class="form-group hidden" id="commodity">
                                             <label class="col-md-3 col-sm-3 col-xs-12 control-label">
                                                 Crops
                                                 <span class="required">*</span>
@@ -465,8 +465,6 @@
                 if ($('#selected-location').val() != "") {
                     new_subscription.push($('#selected-location').val());
                 }
-                
-                console.log(new_subscription);
 
                 // Unsubscribe if no longer subscribed
                 var previous_subscription = JSON.parse(localStorage.getItem("settings_subscription"));
@@ -504,6 +502,9 @@
 
                 if (localStorage.getItem("_has_commodity") == "false") {
                     $('#commodity').remove();
+                }
+                else{
+                    $('#commodity').removeClass("hidden");
                 }
                 
                 window.Parsley.addValidator('locationcheck', {
