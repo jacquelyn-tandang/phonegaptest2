@@ -456,7 +456,11 @@
                     }
                 }
 
-                var new_subscription = getCrops().split(',');
+                var new_subscription = array();
+                if (localStorage.getItem("_has_commodity") != "false") {
+                    new_subscription = getCrops().split(',');
+                }
+
                 new_subscription.push($('#selected-location').val());
                 console.log(new_subscription);
 
@@ -527,7 +531,7 @@
                   }
                 });
 
-                $('form').parsley().on('field:validated', function() {
+                /*$('form').parsley().on('field:validated', function() {
                     var ok = $('.parsley-error').length === 0;
                     $('.bs-callout-info').toggleClass('hidden', !ok);
                     $('.bs-callout-warning').toggleClass('hidden', ok);
@@ -535,6 +539,13 @@
                 .on('form:submit', function(event) {
                     saveSettings();
                     return false; 
+                });
+                */
+
+                $('form').submit(function(event){
+                    event.preventDefault();
+                    saveSettings();
+
                 });
                 
 
