@@ -418,7 +418,7 @@
                     localStorage.getItem("_api_server") + "/user", 
                     null, 
                     function(result) {
-                        
+                        $.LoadingOverlay("hide");
                         localStorage.setItem("settings_user", JSON.stringify(result.data));
                         populateFields(result.data);                   
                     }
@@ -426,10 +426,10 @@
             }
 
             function getUserSettings() {
-                $.LoadingOverlay("show");
+                //$.LoadingOverlay("show");
                 getUserSubscription();
                 getUserInfo();
-                $.LoadingOverlay("hide");
+                //$.LoadingOverlay("hide");
             }
 
             function saveSettings() {
@@ -508,6 +508,8 @@
             $(document).ready(function () {
 
                 //@TODO: If multiple devices, ability to select which device to push
+
+                $.LoadingOverlay("show");
 
                 if (localStorage.getItem("_has_commodity") == "false") {
                     $('#commodity').remove();
