@@ -2,6 +2,8 @@
 localStorage.setItem("application_env", "production"); //test or production
 
 localStorage.setItem("_api_server", "http://sarai.ph:82");
+localStorage.setItem("_has_commodity", "false");
+//localStorage.setItem("_api_server", "http://localhost:82");
 localStorage.setItem("_domain", "sarai.ph:83");
 localStorage.setItem("_api_key", "456");
 localStorage.setItem("_user", "guest");

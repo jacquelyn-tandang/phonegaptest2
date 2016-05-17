@@ -162,7 +162,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group" id="commodity">
                                             <label class="col-md-3 col-sm-3 col-xs-12 control-label">
                                                 Crops
                                                 <span class="required">*</span>
@@ -170,7 +170,7 @@
 
                                             <div id="message-holder" style="margin-left:10px;"></div>
 
-                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="col-md-9 col-sm-9 col-xs-12" >
                                                 <div class="checkbox">
                                                     <label>
                                                         <input data-parsley-multiple="crop" required data-parsley-errors-container="#message-holder" type="checkbox" class="flat" id="banana" value="9" name="crops"> Banana
@@ -493,6 +493,10 @@
             $(document).ready(function () {
 
                 //@TODO: If multiple devices, ability to select which device to push
+
+                if (localStorage.getItem("_has_commodity") == "false") {
+                    $('#commodity').remove();
+                }
                 
                 window.Parsley.addValidator('locationcheck', {
                   validateString: function(value) {
