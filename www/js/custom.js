@@ -752,7 +752,7 @@ function login() {
                             else {
                                 */
                                 localStorage.setItem("gpsloc", town);
-
+                                console.log(localStorage.getItem("gps"));
                                 if (localStorage.getItem("gps") == "1") {
                                     localStorage.setItem("town", town);
                                     $("#town").html(town);
