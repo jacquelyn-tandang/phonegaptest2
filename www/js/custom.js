@@ -411,10 +411,18 @@ function doRequest(url, params, callback) {
                 }
             }              
         },
-        error: function () { 
+        error: function (jqXHR, textStatus) { 
             localStorage.setItem("_ajaxRequestInProgress", "false");
-            throwError('Error', 'Could not connect to API server. <br/>Please try again later.');
-        } 
+            if(textStatus === 'timeout')
+            {     
+                throwError('Connection timed out', 'Could not connect to API server. <br/>Please try again later.');
+            }
+            else{
+                throwError('Error', 'Could not connect to API server. <br/>Please try again later.');
+            }
+            
+        },
+        timeout:10000
     });
 
 }
