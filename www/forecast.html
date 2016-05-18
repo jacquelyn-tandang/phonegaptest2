@@ -176,7 +176,7 @@
     //GEOLOCATION
     // Wait for device API libraries to load
     //
-    //document.addEventListener("deviceready", onDeviceReady, false);
+    document.addEventListener("deviceready", onDeviceReady, false);
 
     
 
@@ -185,15 +185,15 @@
     function onDeviceReady() {
 
 
-       // var city = localStorage.getItem("city");
-        var town = localStorage.getItem("town");
+        // var city = localStorage.getItem("city");
+        var gpsloc = localStorage.getItem("gpsloc");
 
-        if (town === null) {
+        if (gpsloc === null) {
             navigator.geolocation.getCurrentPosition(onGeoLocSuccess, onError);
         }
         else{
            // $("#city").html(city);
-            $("#town").html(town);
+            $("#town").html(gpsloc);
         }
         
     }
@@ -277,10 +277,10 @@
                     }
                     
                 }
-                else{
+                //else{
                     //If device
-                    document.addEventListener("deviceready", onDeviceReady, false);
-                }
+                    //document.addEventListener("deviceready", onDeviceReady, false);
+                //}
                 
             }
         }

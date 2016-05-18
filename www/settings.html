@@ -465,13 +465,12 @@
                         (usegps != previous_usersettings.usegps)
                     ){
 
-                        
-
                         updateUser(occupation, senddaysbefore, usegps);
 
                         previous_usersettings.senddaysbefore = senddaysbefore;
                         previous_usersettings.occupation = occupation;
                         localStorage.setItem("settings_user", JSON.stringify(previous_usersettings));
+                        localStorage.setItem("gps", usegps);
 
                     }
                 }

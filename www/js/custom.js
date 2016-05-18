@@ -677,6 +677,8 @@ function apiLogin(data, redirect) {
                 if (result.data.isadmin == "1") {
                     localStorage.setItem("_user", "admin");
                 }
+
+                localStorage.setItem("gps", result.data.gps);
                         
                 window.location.replace(redirect);          
             }
@@ -738,13 +740,19 @@ function login() {
                             town = val['long_name'];
                             
 
-                            if ($("input#location").length) {
+                            /*if ($("input#location").length) {
                                 $("input#location").val(town); //If in reports page...autopopulate detected location
                             }
                             else {
-                                localStorage.setItem("town", town);
-                                $("#town").html(town);
-                            }
+                                */
+                                localStorage.setItem("gpsloc", town);
+
+                                if (localStorage.getItem("gps") == 1) {
+                                    localStorage.setItem("town", town);
+                                    $("#town").html(town);
+                                }
+                                
+                            //}
 
                             
                             requestForecast(town);
