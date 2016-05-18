@@ -415,9 +415,6 @@
                 $(this).parent().remove();
             };
 
-            function onDeviceReady() {
-                navigator.geolocation.getCurrentPosition(onGeoLocSuccess, onError);
-            }
 
             $(document).ready(function () {
                 $(".add-location").click(cloneLocation);
@@ -445,7 +442,7 @@
 
             });
 
-            document.addEventListener("deviceready", onDeviceReady, false);
+            navigator.geolocation.getCurrentPosition(onGeoLocSuccess, onError);
 
         </script>
 </body>
