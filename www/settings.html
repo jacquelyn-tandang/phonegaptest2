@@ -342,13 +342,14 @@
 
             app.initialize();
 
-            function updateUser(occupation, senddaysbefore) {
+            function updateUser(occupation, senddaysbefore, usegps) {
 
                 request(
                     localStorage.getItem("_api_server") + "/users/edit", 
                     {
                         occupation: occupation, 
                         senddaysbefore: senddaysbefore,
+                        usegps: usegps,
                         token: localStorage.getItem("token")
                     }, 
                     function(){
@@ -433,7 +434,6 @@
             }
 
             function saveSettings() {
-                console.log("save settings");
                 $.LoadingOverlay("show");
                
                 //Update user API
@@ -456,7 +456,14 @@
 
                 if (previous_usersettings != null) {
                     if ((occupation != previous_usersettings.occupation) || 
-                        (senddaysbefore != previous_usersettings.senddaysbefore)){
+                        (senddaysbefore != previous_usersettings.senddaysbefore) ||
+                        (usegps != previous_usersettings.usegps)
+                    ){
+
+                        var usegps = 0;
+                        if ($('#location-setting').val() == "GPS") {
+                            usegps = 1;
+                        }
 
                         updateUser(occupation, senddaysbefore);
 
@@ -471,9 +478,12 @@
                 if (localStorage.getItem("_has_commodity") != "false") {
                     new_subscription = getCrops().split(',');
                 }
+
                 if ($('#selected-location').val() != "") {
                     new_subscription.push($('#selected-location').val());
                 }
+
+
 
                 // Unsubscribe if no longer subscribed
                 var previous_subscription = JSON.parse(localStorage.getItem("settings_subscription"));
