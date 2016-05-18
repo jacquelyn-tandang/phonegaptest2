@@ -587,9 +587,11 @@
 
                 if (localStorage.getItem("locations") === null) {
                     fetchTags();
+
                 }
                 else{
                     setLocationAutoComplete(JSON.parse(localStorage.getItem("locations")));
+                    $.LoadingOverlay("hide");
                 }
 
                 //Fetch settings from api server
