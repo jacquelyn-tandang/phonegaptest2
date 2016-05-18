@@ -195,6 +195,10 @@
            // $("#city").html(city);
             $("#town").html(gpsloc);
         }
+
+        $("#forecast").LoadingOverlay("hide");
+
+
         
     }
 
@@ -261,7 +265,7 @@
                 }
             });
 
-            if (has_fixed_location) {
+            if (localStorage.getItem("gps") == "0") {
                 requestForecast(localStorage.getItem("town"));
             }
             else{
@@ -277,10 +281,10 @@
                     }
                     
                 }
-                //else{
+                else{
                     //If device
-                    //document.addEventListener("deviceready", onDeviceReady, false);
-                //}
+                    document.addEventListener("deviceready", onDeviceReady, false);
+                }
                 
             }
         }
