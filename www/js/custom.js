@@ -323,6 +323,8 @@ $( "#menu-div" ).load( "sidebar-menu.html" );
 $( "#user-info" ).load( "user-info.html" );
 $( "#alert-modal" ).load( "alert-modal.html" );
 
+$( "title" ).prepend(localStorage.getItem("application_name"));
+
 if (localStorage.getItem("received_alert")) {
     var page = localStorage.getItem("_received_alert");
     localStorage.removeItem("received_alert");
@@ -787,9 +789,6 @@ function login() {
                         
                     }
                 );
-
-
-                
             }
         });
 

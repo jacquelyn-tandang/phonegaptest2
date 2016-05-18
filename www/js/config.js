@@ -11,6 +11,7 @@ localStorage.setItem("_open_weather_map_apikey", "cdf61a76f093d1b3fc918e8cdd31bf
 localStorage.setItem("_ajaxRequestInProgress", "false");
 localStorage.setItem("_FB_app_id", "1631061333814819");
 localStorage.setItem("gps_enabled", "true");
+localStorage.setItem("application_name", "PCAARRD Alerts");
 
 
 if (localStorage.getItem("application_env") == "test") {
