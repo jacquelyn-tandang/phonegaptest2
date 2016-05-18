@@ -406,12 +406,23 @@
             }
 
             function populateFields(data) {
+
                 var fields = ["occupation", "senddaysbefore"];
                 $.each( data, function(key, value) {
                     if($.inArray(key, fields) !== -1 ){
                         $('#' + key).val(value);
                     }
+                    else{
+                        if (key == "gps") {
+                            if (value == "1") {
+                                $('#location-setting').val("GPS");
+                                $('#location-container').hide();
+                            }
+                        }
+                    }
                 });
+
+                
             }
 
             function getUserInfo() {
@@ -459,6 +470,9 @@
                     usegps = 1;
                 }
 
+                console.log("new gps:" +usegps);
+                console.log("old gps:" + previous_usersettings.gps);
+
                 if (previous_usersettings != null) {
                     if ((occupation != previous_usersettings.occupation) || 
                         (senddaysbefore != previous_usersettings.senddaysbefore) ||
@@ -469,6 +483,7 @@
 
                         previous_usersettings.senddaysbefore = senddaysbefore;
                         previous_usersettings.occupation = occupation;
+                        previous_usersettings.gps = usegps;
                         localStorage.setItem("settings_user", JSON.stringify(previous_usersettings));
                         localStorage.setItem("gps", usegps);
 
@@ -564,7 +579,7 @@
                   }
                 });
 
-                $('form').parsley().on('field:validated', function() {
+                /*$('form').parsley().on('field:validated', function() {
                     var ok = $('.parsley-error').length === 0;
                     $('.bs-callout-info').toggleClass('hidden', !ok);
                     $('.bs-callout-warning').toggleClass('hidden', ok);
@@ -572,14 +587,14 @@
                 .on('form:submit', function(event) {
                     saveSettings();
                     return false; 
-                });
+                });*/
                 
 
-                /*$('form').submit(function(event){
+                $('form').submit(function(event){
                     event.preventDefault();
                     saveSettings();
 
-                });*/
+                });
                 
 
                 $("#location-container").hide();
