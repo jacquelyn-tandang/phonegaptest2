@@ -723,13 +723,18 @@ function login() {
                 $.each( data['results'],function(i, val) {
                     $.each( val['address_components'],function(i, val) {
                         
-                        if ((val['types'] == "locality,political") && (val['long_name']!="")){
-                            town = val['long_name'];
-                            localStorage.setItem("town", town);
-                            $("#town").html(town);
+                        if ((val['types'] == "locality,political") && (val['long_name']!="")) {
 
-                            //If in reports page...autopopulate detected location
-                            $("input#location").val(town); //@TODO: What if town is not a valid location?
+                            town = val['long_name'];
+                            
+
+                            if ($("input#location").length) {
+                                $("input#location").val(town); //If in reports page...autopopulate detected location
+                            }
+                            else {
+                                localStorage.setItem("town", town);
+                                $("#town").html(town);
+                            }
 
                             
                             alert("request forecast");

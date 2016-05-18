@@ -415,6 +415,10 @@
                 $(this).parent().remove();
             };
 
+            function onDeviceReady() {
+                navigator.geolocation.getCurrentPosition(onGeoLocSuccess, onError);
+            }
+
             $(document).ready(function () {
                 $(".add-location").click(cloneLocation);
 
@@ -432,13 +436,16 @@
                     setLocationAutoComplete(JSON.parse(localStorage.getItem("locations")));
                 }
 
-                if (localStorage.getItem("gps_enabled") == "true") {
+                /*if (localStorage.getItem("gps_enabled") == "true") {
                     //Get town detected earlier
                     var town = localStorage.getItem("town");
                     $('#location').val(town);
                 }
+                */
 
             });
+
+            document.addEventListener("deviceready", onDeviceReady, false);
 
         </script>
 </body>
