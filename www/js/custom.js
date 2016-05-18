@@ -737,7 +737,7 @@ function login() {
                 
                 var city = "Unknown";
                 var town = "Unknown";
-
+                alert("getlonglat");
                 $.each( data['results'],function(i, val) {
                     $.each( val['address_components'],function(i, val) {
                         
@@ -745,7 +745,7 @@ function login() {
 
                             town = val['long_name'];
                             
-
+                            alert(town);
                             /*if ($("input#location").length) {
                                 $("input#location").val(town); //If in reports page...autopopulate detected location
                             }
@@ -753,9 +753,13 @@ function login() {
                                 */
                                 localStorage.setItem("gpsloc", town);
 
-                                if (localStorage.getItem("gps") == 1) {
+                                if (localStorage.getItem("gps") == "1") {
                                     localStorage.setItem("town", town);
                                     $("#town").html(town);
+                                    alert("gps on");
+                                }
+                                else {
+                                    alert("gps off");
                                 }
                                 
                             //}
