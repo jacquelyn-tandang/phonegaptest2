@@ -398,7 +398,11 @@
                         //Check if valid location
                         for (var key in locations) {
                             //console.log(locations[key]);
-                            if (locations[key] == loc) {
+                            var encodedStr = loc.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+                               return '&#'+i.charCodeAt(0)+';';
+                            });
+
+                            if (locations[key] == encodedStr) {
                                 console.log(locations[key]);
                                 valid = true; 
                                 break;   

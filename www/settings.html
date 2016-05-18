@@ -395,7 +395,7 @@
                         else{
                             var location = JSON.parse(localStorage.getItem("locations"));
                             $('#location-setting').val("Fixed");
-                            $('#location').val(location[key]);
+                            $('#location').val(decodeEntities(location[key]));
                             $("#location-container").show();
                         }
 
@@ -540,9 +540,15 @@
                         var locations = JSON.parse(localStorage.getItem("locations"));
 
                         //Check if valid location
+                        console.log($('<div/>').text(loc).html());
                         for (var key in locations) {
                             //console.log(locations[key]);
-                            if (locations[key] == loc) {
+
+                            var encodedStr = loc.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+                               return '&#'+i.charCodeAt(0)+';';
+                            });
+
+                            if (locations[key] == encodedStr) {
                                 console.log(locations[key]);
                                 $('#selected-location').val(key);
                                 valid = true; 
@@ -558,7 +564,7 @@
                   }
                 });
 
-                /*$('form').parsley().on('field:validated', function() {
+                $('form').parsley().on('field:validated', function() {
                     var ok = $('.parsley-error').length === 0;
                     $('.bs-callout-info').toggleClass('hidden', !ok);
                     $('.bs-callout-warning').toggleClass('hidden', ok);
@@ -567,13 +573,13 @@
                     saveSettings();
                     return false; 
                 });
-                */
+                
 
-                $('form').submit(function(event){
+                /*$('form').submit(function(event){
                     event.preventDefault();
                     saveSettings();
 
-                });
+                });*/
                 
 
                 $("#location-container").hide();

@@ -49,6 +49,12 @@
             DOWN: 40
         };
 
+    function decodeEntities(encodedString) {
+        var textArea = document.createElement('textarea');
+        textArea.innerHTML = encodedString;
+        return textArea.value;
+    }
+
     function Autocomplete(el, options) {
         var noop = function () { },
             that = this,
@@ -322,7 +328,7 @@
 
             switch (e.which) {
                 case keys.ESC:
-                    that.el.val(that.currentValue);
+                    that.el.val(decodeEntities(that.currentValue));
                     that.hide();
                     break;
                 case keys.RIGHT:
@@ -710,7 +716,7 @@
             if (that.selectedIndex === 0) {
                 $(that.suggestionsContainer).children().first().removeClass(that.classes.selected);
                 that.selectedIndex = -1;
-                that.el.val(that.currentValue);
+                that.el.val(decodeEntities(that.currentValue));
                 that.findBestHint();
                 return;
             }
@@ -750,7 +756,7 @@
                 $(that.suggestionsContainer).scrollTop(offsetTop - that.options.maxHeight + heightDelta);
             }
 
-            that.el.val(that.getValue(that.suggestions[index].value));
+            that.el.val(decodeEntities(that.getValue(that.suggestions[index].value)));
             that.signalHint(null);
         },
 
@@ -762,7 +768,8 @@
             that.currentValue = that.getValue(suggestion.value);
 
             if (that.currentValue !== that.el.val()) {
-                that.el.val(that.currentValue);
+                console.log(decodeEntities(that.currentValue))
+                that.el.val(decodeEntities(that.currentValue));
             }
 
             that.signalHint(null);

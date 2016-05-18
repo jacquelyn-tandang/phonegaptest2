@@ -172,7 +172,7 @@
                                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Location</label>
                                             <div class="col-md-9 col-sm-9 col-xs-12">
                                                 <div class="location-entry">
-                                                    <input required="required" class="location form-control" id="location" name="location" class="form-control col-md-7 col-xs-12" type="text" style="width:calc(100% - 50px); float:left;margin-right: 20px;">
+                                                    <input data-parsley-locationcheck required="required" class="location form-control" id="location" name="location" class="form-control col-md-7 col-xs-12" type="text" style="width:calc(100% - 50px); float:left;margin-right: 20px;">
                                                     <div class="add-location" style=" font-size: 24px;">
                                                         <i class="fa fa-plus-circle"></i>
                                                     </div>
@@ -374,6 +374,38 @@
                 localStorage.removeItem("settings_subscription");
                 localStorage.removeItem("forecast");
         }
+
+        window.Parsley.addValidator('locationcheck', {
+                  validateString: function(value) {
+                    //return value.split('').reverse().join('') === value;
+                    //@TODO: multiple locations
+                    var valid = false;
+                    var loc = $('.location').val();
+
+                    if (loc != "") {
+                        var locations = JSON.parse(localStorage.getItem("locations"));
+
+                        //Check if valid location
+                        for (var key in locations) {
+                            //console.log(locations[key]);
+                            var encodedStr = loc.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+                               return '&#'+i.charCodeAt(0)+';';
+                            });
+
+                            if (locations[key] == encodedStr) {
+                                console.log(locations[key]);
+                                valid = true; 
+                                break;   
+                            }
+                        }
+                    }
+
+                    return valid;
+                  },
+                  messages: {
+                    en: 'Please enter a valid location'
+                  }
+                });
 
         $(function () {
           $('#demo-form2').parsley().on('field:validated', function() {
