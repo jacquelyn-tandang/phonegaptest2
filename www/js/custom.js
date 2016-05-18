@@ -683,7 +683,7 @@ function apiLogin(data, redirect) {
                 if (result.data.isadmin == "1") {
                     localStorage.setItem("_user", "admin");
                 }
-
+                console.log(result.data.gps);
                 localStorage.setItem("gps", result.data.gps);
                         
                 window.location.replace(redirect);          
