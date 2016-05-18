@@ -454,16 +454,18 @@
                 console.log("new days:" +senddaysbefore);
                 console.log("old days:" + previous_usersettings.senddaysbefore);
 
+                var usegps = 0;
+                if ($('#location-setting').val() == "GPS") {
+                    usegps = 1;
+                }
+
                 if (previous_usersettings != null) {
                     if ((occupation != previous_usersettings.occupation) || 
                         (senddaysbefore != previous_usersettings.senddaysbefore) ||
                         (usegps != previous_usersettings.usegps)
                     ){
 
-                        var usegps = 0;
-                        if ($('#location-setting').val() == "GPS") {
-                            usegps = 1;
-                        }
+                        
 
                         updateUser(occupation, senddaysbefore, usegps);
 

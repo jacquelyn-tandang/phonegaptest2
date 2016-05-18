@@ -422,7 +422,7 @@ function doRequest(url, params, callback) {
             }
             
         },
-        timeout:10000
+        timeout:500000
     });
 
 }
