@@ -716,7 +716,7 @@ function login() {
             url: query_url,
             data: {},
             success: function(data) {
-                alert("ajax1success");
+                
                 var city = "Unknown";
                 var town = "Unknown";
 
@@ -737,14 +737,12 @@ function login() {
                             }
 
                             
-                            alert("request forecast");
                             requestForecast(town);
                             //@TODO: Use current location and register device async
                             //@TODO: DO not register location if in report page
                             
                             if (localStorage.getItem("locations")) {
                                 //@TOD:Use cache if there is cache
-                                 alert("has cache");
                                 registerLocation(town);
                             }
                             else{
@@ -752,7 +750,6 @@ function login() {
                                     localStorage.getItem("_api_server") + "/tags", 
                                     null, 
                                     function(result){
-                                        alert("ajax2success");
                                         localStorage.setItem("locations", JSON.stringify(tags));
                                         registerLocation(town);
                                     }

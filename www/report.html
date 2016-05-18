@@ -433,16 +433,15 @@
                     setLocationAutoComplete(JSON.parse(localStorage.getItem("locations")));
                 }
 
-                /*if (localStorage.getItem("gps_enabled") == "true") {
-                    //Get town detected earlier
-                    var town = localStorage.getItem("town");
-                    $('#location').val(town);
-                }
-                */
+
+                var town = localStorage.getItem("town");
+                $('#location').val(town);
+                
+                
 
             });
 
-            navigator.geolocation.getCurrentPosition(onGeoLocSuccess, onError);
+           
 
         </script>
 </body>
