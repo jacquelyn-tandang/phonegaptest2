@@ -579,7 +579,7 @@
                   }
                 });
 
-                /*$('form').parsley().on('field:validated', function() {
+                $('form').parsley().on('field:validated', function() {
                     var ok = $('.parsley-error').length === 0;
                     $('.bs-callout-info').toggleClass('hidden', !ok);
                     $('.bs-callout-warning').toggleClass('hidden', ok);
@@ -587,14 +587,14 @@
                 .on('form:submit', function(event) {
                     saveSettings();
                     return false; 
-                });*/
+                });
                 
 
-                $('form').submit(function(event){
+                /*$('form').submit(function(event){
                     event.preventDefault();
                     saveSettings();
 
-                });
+                });*/
                 
 
                 $("#location-container").hide();
