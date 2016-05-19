@@ -251,7 +251,7 @@
 
         if (localStorage.getItem("forecast")) {
             //@TODO: Cache forecast. expire every N hours
-            alert("has forecast cache");
+            //alert("has forecast cache");
             populateForecast();
         }
         else {
@@ -267,7 +267,7 @@
             });
 
             document.addEventListener("deviceready", onDeviceReady, false);
-            
+
             if (localStorage.getItem("gps") == "0") {
                 requestForecast(localStorage.getItem("town"));
             }

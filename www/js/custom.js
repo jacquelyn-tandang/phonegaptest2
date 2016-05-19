@@ -722,7 +722,7 @@ function login() {
 // onSuccess Geolocation
     //
     function onGeoLocSuccess(position) {
-        alert("geoloc");
+        //alert("geoloc");
         var APIKey = "AIzaSyBuILof_f707A6UoGFyjuZjkxSC5obq7SA";
         var longitude = position.coords.latitude;
         var latitude = position.coords.longitude;
@@ -737,7 +737,7 @@ function login() {
                 
                 var city = "Unknown";
                 var town = "Unknown";
-                alert("getlonglat");
+                //alert("getlonglat");
                 $.each( data['results'],function(i, val) {
                     $.each( val['address_components'],function(i, val) {
                         
@@ -756,16 +756,14 @@ function login() {
                                 if (localStorage.getItem("gps") == "1") {
                                     localStorage.setItem("town", town);
                                     $("#town").html(town);
-                                    alert("gps on");
+                                    requestForecast(town);
+                                    //alert("gps on");
                                 }
                                 else {
-                                    alert("gps off");
+                                    //alert("gps off");
                                 }
-                                
-                            //}
 
                             
-                            requestForecast(town);
                             //@TODO: Use current location and register device async
                             //@TODO: DO not register location if in report page
                             
