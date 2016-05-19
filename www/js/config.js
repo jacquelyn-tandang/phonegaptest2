@@ -12,6 +12,8 @@ localStorage.setItem("_ajaxRequestInProgress", "false");
 localStorage.setItem("_FB_app_id", "1631061333814819");
 localStorage.setItem("gps_enabled", "true");
 localStorage.setItem("application_name", "PCAARRD Alerts");
+localStorage.setItem("all_location_id", "1783");
+//localStorage.setItem("all_location_id", "150");
 
 
 if (localStorage.getItem("application_env") == "test") {

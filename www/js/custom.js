@@ -745,7 +745,7 @@ function login() {
 
                             town = val['long_name'];
                             
-                            alert(town);
+                            
                             /*if ($("input#location").length) {
                                 $("input#location").val(town); //If in reports page...autopopulate detected location
                             }

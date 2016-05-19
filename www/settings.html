@@ -470,6 +470,10 @@
                     usegps = 1;
                 }
 
+                if ($('#location-setting').val() == "All") {
+                    $('#selected-location').val(localStorage.getItem("all_location_id"));
+                }
+
                 console.log("new gps:" +usegps);
                 console.log("old gps:" + previous_usersettings.gps);
 
