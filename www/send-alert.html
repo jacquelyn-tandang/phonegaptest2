@@ -308,16 +308,14 @@
                     tags += this.value + ',';
                 });
 
-                /*var locations = mapLocations();
-                $('input[name="location"]').each(function() {
-                    tags +=  getLocationID(locations, this.value) + ',';                       
-                });
-                */
                 var locations = JSON.parse(localStorage.getItem("locations"));
                 $('input[name="location"]').each(function() {
-                    //tags +=  getLocationID(locations, this.value) + ',';
+                    var encodedStr = this.value.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+                        return '&#'+i.charCodeAt(0)+';';
+                    });
+                    console.log(encodedStr);
                     for (var key in locations) {
-                        if (locations[key] == this.value) {
+                        if (locations[key] == encodedStr) {
                             tags +=  key + ',';
                             break;   
                         }
