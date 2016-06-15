@@ -277,7 +277,23 @@
                     //If browser
                     var browser_city = geoplugin_city();
                     if (browser_city != "") {
+                        browser_city = browser_city.replace(" City", "");
                         $("#town").html(browser_city);
+
+                        //subscribe to location //@TODO: THIS IS DUPLICATE, REFACTOR
+                                    var encodedStr = browser_city.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+                                        return '&#'+i.charCodeAt(0)+';';
+                                    });
+                                    console.log(encodedStr);
+                                    var locations = JSON.parse(localStorage.getItem("locations"));
+                                    console.log(locations);
+                                    for (var key in locations) {
+                                        if (locations[key] == encodedStr) {
+                                            console.log("subscribeto:"+key);
+                                            subscribe(key); 
+                                            break;   
+                                        }
+                                    } 
                     }
                     else{
                         $("#forecast").html("Unable to detect your location. Click <a href='settings.html'>here</a> to manually set your location");
@@ -377,6 +393,8 @@
     }
 
     $(document).ready(function () {
+
+        fetchTags()
 
         $("#forecast").LoadingOverlay("show");
         $("#active-alerts-div").LoadingOverlay("show");

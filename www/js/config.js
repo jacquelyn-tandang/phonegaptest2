@@ -18,7 +18,7 @@ localStorage.setItem("all_location_id", "1783");
 
 if (localStorage.getItem("application_env") == "test") {
     localStorage.setItem("_FB_app_id", "1685220765065542");
-    //localStorage.setItem("_api_server", "http://localhost:82");
+    localStorage.setItem("_api_server", "http://localhost:82");
     //localStorage.setItem("_api_server", "http://www.sarai.ph:82");
     //localStorage.setItem("_domain", "localhost:3000");
     localStorage.setItem("_domain", "http://www.phonegap-local.com:3000");

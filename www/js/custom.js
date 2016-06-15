@@ -571,6 +571,7 @@ function getTagIDsString() {
 }
 
 function fetchTags() {
+    if (localStorage.getItem("locations") === null) {
                 request(
                     localStorage.getItem("_api_server") + "/tags", 
                     null, 
@@ -584,8 +585,8 @@ function fetchTags() {
                         setLocationAutoComplete(tags);              
                     }
                 );
-                
-            }
+    }   
+}
             
 function decodeEntities(encodedString) {
         var textArea = document.createElement('textarea');
@@ -594,15 +595,16 @@ function decodeEntities(encodedString) {
     }
 
 function setLocationAutoComplete(tags) {
-
-    var tagsArray = $.map(
-        tags, 
-        function (value, key) {
-            return {
-                value: value,
-                data: key
-            };
-        });
+    
+    if ($('.location').length > 0) {
+        var tagsArray = $.map(
+            tags, 
+            function (value, key) {
+                return {
+                    value: value,
+                    data: key
+                };
+            });
 
         $('.location').unbind();
 
@@ -611,6 +613,7 @@ function setLocationAutoComplete(tags) {
                 lookup: tagsArray,
                 appendTo: '#autocomplete-container'
             });
+    }
 }
 
 function getLocationID(locations, loc) {
@@ -757,6 +760,23 @@ function login() {
                                     localStorage.setItem("town", town);
                                     $("#town").html(town);
                                     requestForecast(town);
+                                    
+
+                                    //subscribe to location 
+                                    var encodedStr = town.replace(/[\u00A0-\u9999<>\&]/gim, function(i) {
+                                        return '&#'+i.charCodeAt(0)+';';
+                                    });
+                                    console.log(encodedStr);
+                                    var locations = JSON.parse(localStorage.getItem("locations"));
+                                    for (var key in locations) {
+                                        if (locations[key] == encodedStr) {
+                                            console.log("subscribeto:"+key);
+                                            subscribe(key); 
+                                            break;   
+                                        }
+                                    }  
+
+
                                     //alert("gps on");
                                 }
                                 else {
@@ -791,7 +811,7 @@ function login() {
     }
 
     function registerLocation(loc) {
-
+        //console.log("registerlocation");
         var locations = JSON.Parse(localStorage.setItem("locations"));
 
         $.each(locations, function(key, value) {
