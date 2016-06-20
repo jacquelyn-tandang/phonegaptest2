@@ -595,7 +595,7 @@ function decodeEntities(encodedString) {
     }
 
 function setLocationAutoComplete(tags) {
-    
+
     if ($('.location').length > 0) {
         var tagsArray = $.map(
             tags, 
@@ -760,6 +760,14 @@ function login() {
                                     localStorage.setItem("town", town);
                                     $("#town").html(town);
                                     requestForecast(town);
+
+                                    //unsubscribe to current location
+                                    var subscription = JSON.parse(localStorage.getItem("settings_subscription"));  
+                                    $.each( subscription, function( key, value ) {
+                                        if (key > 10) {
+                                        unsubscribe(key); 
+                                        }
+                                    });
                                     
 
                                     //subscribe to location 

@@ -275,7 +275,7 @@
 
                 if (typeof device === "undefined") {
                     //If browser
-                    var browser_city = geoplugin_city();
+                    /*var browser_city = geoplugin_city();
                     if (browser_city != "") {
                         browser_city = browser_city.replace(" City", "");
                         $("#town").html(browser_city);
@@ -296,8 +296,11 @@
                                     } 
                     }
                     else{
-                        $("#forecast").html("Unable to detect your location. Click <a href='settings.html'>here</a> to manually set your location");
-                    }
+                        //$("#forecast").html("Unable to detect your location. Click <a href='settings.html'>here</a> to manually set your location");
+                        
+                        $("#forecast").html("Click the <a href='settings.html' id='geolocate' style='text-decoration: underline'>here</a> to allow your browser to detect your location");
+                    }*/
+                    getLocation()
                     
                 }
                 else{
@@ -392,9 +395,27 @@
         $("#forecast").LoadingOverlay("hide");
     }
 
+    function showPosition(position) {
+        console.log("Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude);
+        onGeoLocSuccess(position);
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            //$("#forecast").html("Geolocation is not supported by this browser.");
+            $("#forecast").html("Geolocation is not supported by this browser. Click the <a href='settings.html' id='geolocate' style='text-decoration: underline'>here</a> to allow your browser to detect your location");
+        }
+    }
+
     $(document).ready(function () {
 
         fetchTags()
+
+        $('#geolocate').click(function(){
+            getLocation()
+        });
 
         $("#forecast").LoadingOverlay("show");
         $("#active-alerts-div").LoadingOverlay("show");
