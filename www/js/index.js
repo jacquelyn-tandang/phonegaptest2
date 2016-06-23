@@ -20,7 +20,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
-        alert("initialize");
+        //alert("initialize");
         document.addEventListener("deviceready", this.onDeviceReady, false);
     },
     // Bind Event Listeners
@@ -41,10 +41,10 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        alert("device ready");
+        //alert("device ready");
     },
     tokenHandler:function(msg) {
-        console.log("Token Handler " + msg);
+        //console.log("Token Handler " + msg);
         localStorage.setItem("device_token", msg);
     },
     errorHandler:function(error) {
@@ -52,25 +52,21 @@ var app = {
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
-        alert('Success! Result = '+result)
+        //alert('Success! Result = '+result)
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 
-        alert('1: Received Event: ' + id);
         var pushNotification = window.plugins.pushNotification;
         // TODO: Enter your own GCM Sender ID in the register call for Android
         if (device.platform == 'android' || device.platform == 'Android') {
-            alert('Android');
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"174923399449","ecb":"app.onNotificationGCM"});
             //pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"571622833472","ecb":"app.onNotificationGCM"}
         }
         else {
-            alert('Else');
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"false","ecb":"app.onNotificationAPN"});
         }
 
-        alert('Set');
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
@@ -78,7 +74,6 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        alert('Received Event: ' + id);
     },
     // iOS
     onNotificationAPN: function(event) {
@@ -99,7 +94,6 @@ var app = {
     // Android
     onNotificationGCM: function(e) {
 
-        alert('onNotificationGCM: ' + e.event);
         switch( e.event )
         {
             case 'registered':
@@ -107,7 +101,7 @@ var app = {
                 {
                     //Successfully registered Device token
                     localStorage.setItem("device_token", e.regid);
-                    alert("token: " + e.regid);
+                    //alert("token: " + e.regid);
                 }
             break;
 
@@ -116,13 +110,13 @@ var app = {
                 // of the intermediary push server which must also be reflected in GCMIntentService.java
                 
                 this.showAlert(e.payload);
-                console.log(e.payload);
+                //console.log(e.payload);
 
             break;
 
             case 'error':
               alert('GCM error = '+e.msg);
-              console.log('GCM error = '+e.msg);
+              //console.log('GCM error = '+e.msg);
             break;
 
             default:

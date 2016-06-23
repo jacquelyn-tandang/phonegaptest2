@@ -6457,9 +6457,15 @@ ul.notifications {
     transform: rotate(360deg);
   }
 }
+
+div#location-container div.col-md-9.col-sm-9.col-xs-12 > div{
+    padding-bottom: 15px;
+}
+
+div#location-container ul.parsley-errors-list.filled,
 div.location-entry ul{
     clear:left;
-    margin-top:35px;
+    margin-top:32px;
     position:absolute;
 }
 /*
