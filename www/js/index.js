@@ -21,6 +21,7 @@ var app = {
     initialize: function() {
         this.bindEvents();
         alert("initialize");
+        document.addEventListener("deviceready", this.onDeviceReady, false);
     },
     // Bind Event Listeners
     //
@@ -106,7 +107,7 @@ var app = {
                 {
                     //Successfully registered Device token
                     localStorage.setItem("device_token", e.regid);
-                    console.log("token: " + e.regid);
+                    alert("token: " + e.regid);
                 }
             break;
 
