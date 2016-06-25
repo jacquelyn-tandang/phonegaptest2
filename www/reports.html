@@ -286,6 +286,9 @@
 
     <script type='text/javascript' src='js/geo-charts-loader.js'></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuILof_f707A6UoGFyjuZjkxSC5obq7SA&callback=drawMarkersMap"
+    async defer></script>
+
 
     <!-- chart js -->
     <script src="js/chartjs/chart.min.js"></script>
@@ -378,8 +381,7 @@
             chart.draw(data, options);
         };
 
-        google.charts.load('current', {'packages': ['geochart']});
-        google.charts.setOnLoadCallback(drawMarkersMap);
+        
 
         
 
@@ -439,18 +441,20 @@
 
 
                     //Crops
-                    doughnutData = [];
-                    var i = 0;
-                    $.each( result.data.crops, function( key, value ) {
-                       $('#crops').append(populateDoughnutInfo(key, value.toFixed(2), colors[i]));
-                        doughnutData.push({
-                            value: value,
-                            color: colors[i]
+                    if ($("#canvas2").length > 0) {
+                        doughnutData = [];
+                        var i = 0;
+                        $.each( result.data.crops, function( key, value ) {
+                           $('#crops').append(populateDoughnutInfo(key, value.toFixed(2), colors[i]));
+                            doughnutData.push({
+                                value: value,
+                                color: colors[i]
+                            });
+                            i++;
                         });
-                        i++;
-                    });
 
-                    myDoughnut = new Chart(document.getElementById("canvas2").getContext("2d")).Doughnut(doughnutData);
+                        myDoughnut = new Chart(document.getElementById("canvas2").getContext("2d")).Doughnut(doughnutData);
+                    }
 
 
                     //Alerts sent
@@ -483,10 +487,11 @@
                         }
 
                     }
-
+                    console.log("Data:");
                     console.log(data);
 
-                    /*var data = [];
+                    /*
+                    var data = [];
                     $.each( result.data.alerts_sent, function( key, value ) {   
                         var date = key.split("-");                    
                         data.push([gd(date[0], date[1], date[2]), value]);
@@ -547,6 +552,8 @@
                         locations.push([key, value]);
                     });
 
+                    google.charts.load('current', {'packages': ['geochart']});
+                    google.charts.setOnLoadCallback(drawMarkersMap);
                     localStorage.setItem("location_report", JSON.stringify(locations));
                     
                     
