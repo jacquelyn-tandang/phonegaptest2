@@ -226,6 +226,17 @@ console.log(alert_details);
 
                 }
 
+                $('#menu_toggle').unbind();
+                $('#menu_toggle').click(function() {
+                        //window.history.back();
+                        window.location.href = localStorage.getItem("prev_page");
+                    });
+
+                //Back button
+                $("div.nav.toggle a#menu_toggle i")
+                    .removeClass("fa-bars")
+                    .addClass("fa-chevron-left");
+
             });
 
             //@TODO: Public alerts version of this page where token in API will not be required
