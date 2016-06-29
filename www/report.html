@@ -197,6 +197,8 @@
                                             <div class="col-md-9 col-sm-9 col-xs-12">
                                                 <input type="file" name="attachment" id="attachment" accept="image/*">
                                             </div>
+
+                                            <img id="preview">
                                         </div>
 
                                         <div class="form-group hidden" id="commodity">
@@ -284,7 +286,10 @@
         <script src="js/autocomplete/jquery.autocomplete.js"></script>
         <script src="js/custom.js"></script>
         <script src="js/parsley/parsley.min.js"></script>
+        <script src="js/ImageTools.js"></script>
         <script>
+
+        var data = new FormData();
 
         function sendReport() {
                 $.LoadingOverlay("show");
@@ -307,10 +312,14 @@
 
                 tags = tags.slice(0,-1);
 
-                var data = new FormData();
-                jQuery.each(jQuery('#attachment')[0].files, function(i, file) {
-                    data.append('attachment', file);
-                });
+                
+                //jQuery.each(jQuery('#attachment')[0].files, function(i, file) {
+                //    data.append('attachment', file);
+                    //@TODO: use resized image
+                //});
+
+
+
 
                 data.append('token', localStorage.getItem("token"));
                 data.append('title', $('input#alert-title').val());
@@ -407,7 +416,7 @@
                   }
                 });
 
-        $(function () {
+        /*$(function () {
           $('#demo-form2').parsley().on('field:validated', function() {
             var ok = $('.parsley-error').length === 0;
             $('.bs-callout-info').toggleClass('hidden', !ok);
@@ -417,6 +426,13 @@
             sendReport();
             return false; 
           });
+        });
+        */
+
+        $('form').submit(function(e){
+            alert("test");
+            e.preventDefault();
+            sendReport();
         });
 
             var cloneLocation = function() {
@@ -470,6 +486,17 @@
                 $('#location').val(localStorage.getItem("gpsloc"));
                 
                 
+                $('#attachment').change(function(evt) {
+                    ImageTools.resize(this.files[0], {
+                        width: 320, // maximum width
+                        height: 500 // maximum height
+                    }, function(blob, didItResize) {
+                        // didItResize will be true if it managed to resize it, otherwise false (and will return the original file as 'blob')
+                        document.getElementById('preview').src = window.URL.createObjectURL(blob);
+                        data.append('attachment', blob);
+                        // you can also now upload this blob using an XHR.
+                    });
+                });
 
             });
 
