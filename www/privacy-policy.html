@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> | Send Report </title>
+    <title> | Privacy Policy </title>
 
     <!-- Bootstrap core CSS -->
 
@@ -112,7 +112,7 @@
                                 </div>
                                 <div class="x_content">
 
-<p>Depending on what you do when you visit any web site, you are providing information about your visit to the site's owners. This includes www.sarai.ph</p>
+<p>Depending on what you do when you visit any web site or use an application, you are providing information about your visit or use to the site's or app's owners. This includes <span class="appSite"></span> and <span class="appName"></span> mobile app.</p>
 
 <p>We value privacy and think you do too, so we want you to have the information you need to make your own decisions about your personal privacy. When you visit or supply information to any web site, we think it's a good idea for you to first understand what that site's privacy policies are. </p>
 
@@ -136,7 +136,7 @@
 
 <h4>Linking to Other Sites</h4>
 
-<p>Please remember that when you use a link to go from www.sarai.ph to another web site, the www.sarai.ph Site Rules and this Privacy Policy are no longer in effect. Your browsing and interaction on any other web site, including any site that has a link on our site, is subject to the rules and policies of that site. We encourage you to read the rules and policies of the sites you visit to further understand their procedures for collecting, using, and disclosing personal information. </p>
+<p>Please remember that when you use a link to go from <span class="appSite"></span> to another web site, the <span class="appSite"></span> Site Rules and this Privacy Policy are no longer in effect. Your browsing and interaction on any other web site, including any site that has a link on our site, is subject to the rules and policies of that site. We encourage you to read the rules and policies of the sites you visit to further understand their procedures for collecting, using, and disclosing personal information. </p>
 
 <h4>Our Policy Regarding Sharing of Information</h4>
 
@@ -150,13 +150,13 @@
 
 <h4>How We Protect the Security of Your Information</h4>
 
-<p>The security of your personal information is very important to us and we are committed to protecting the information we collect. www.sarai.ph uses security measures in place at its physical facilities to protect against the loss, misuse, or alteration of information that we have collected from you at our web site. </p>
+<p>The security of your personal information is very important to us and we are committed to protecting the information we collect. <span class="appSite"></span> uses security measures in place at its physical facilities to protect against the loss, misuse, or alteration of information that we have collected from you at our web site. </p>
 
-<h4>Changes to the www.sarai.ph Privacy Policy</h4>
+<h4>Changes to the <span class="appSite"></span> Privacy Policy</h4>
 
 <p>This Privacy Policy was posted in July 2016. We reserve the right to change, modify or amend this policy at any time. You are responsible for revisiting this page to review our privacy policy updates. </p>
 
-<h4>How to Contact www.classicsleepcare.com</h4>
+<h4>How to Contact <span class="appName"></span></h4>
 
 <p>Please note that whenever you submit any information to us in connection with any www.classicsleepcare.com related services, you consent to our processing of this information to provide the services in which you are participating. </p>
 
@@ -183,24 +183,18 @@
         </div>
 
         <script src="js/bootstrap.min.js"></script>
-
-        <!-- icheck -->
-        <script src="js/icheck/icheck.min.js"></script>
-        <script src="js/nicescroll/jquery.nicescroll.min.js"></script>
-
-        <!-- select2 -->
-        <script src="js/select/select2.full.js"></script>
-        <!-- textarea resize -->
-        <script src="js/textarea/autosize.min.js"></script>
-        <script>
-            autosize($('.resizable_textarea'));
-        </script>
-        <!-- Autocomplete -->
-        <script type="text/javascript" src="js/autocomplete/countries.js"></script>
-        <script src="js/autocomplete/jquery.autocomplete.js"></script>
         <script src="js/custom.js"></script>
-        <script src="js/parsley/parsley.min.js"></script>
-        <script src="js/ImageTools.js"></script>
+        <script>
+            $(function () {
+                var appName = localStorage.getItem("application_name");
+                var appSite = localStorage.getItem("_domain");
+
+                $(".appName").html(appName);
+                $(".appSite").html(appSite);
+
+            });
+        </script>
+
         
 </body>
 
